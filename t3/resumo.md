@@ -90,9 +90,9 @@ $$
 &\TINIT(X,X')     &≡& (m = \START)    &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
 &\TBREAK(X,X')    &≡& (m = \FREE)     &∧& (m' = \STOPPING) &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
 &\TUNBREAK(X,X')  &≡& (m = \STOPPING) &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\TBLOCK(X,X')    &≡& (m = \STOPPING) &∧& (m' = \BLOCKED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣) \\
+&\TBLOCK(X,X')    &≡& (m = \STOPPING) &∧& (m' = \BLOCKED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
 &\TUNBLOCK(X,X')  &≡& (m = \BLOCKED)  &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\TSTOP(X,X')     &≡& (m = \BLOCKED)  &∧& (m' = \STOPPED)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TSTOP(X,X')     &≡& (m = \BLOCKED)  &∧& (m' = \STOPPED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
 \end{aligned}
 $$
 
@@ -104,8 +104,8 @@ Seja $X ≡ (m, t, V, v)$
 
 $$
 \begin{aligned}
-\TFREE(X,X')
-&\equiv
+&\TFREE(X,X')
+&&\equiv
 \begin{cases}
 \dot{V} &= -c\cdot(V - v) - b)\\
 \dot{v} &= -a \cdot P + c \cdot (V - v)
@@ -113,8 +113,8 @@ $$
 %
 \\[1.5em]
 %
-\TSTOPPING(X,X')
-&\equiv
+&\TSTOPPING(X,X')
+&&\equiv
 \begin{cases}
 \dot{V} = -c\cdot(V - v) - b)\\
 \dot{v} = -a \cdot P + c \cdot (V - v)
@@ -122,8 +122,8 @@ $$
 %
 \\[1.5em]
 %
-\TBLOCKED(X,X')
-&\equiv
+&\TBLOCKED(X,X')
+&&\equiv
 \begin{cases}
 V &= v\\
 \dot{V} &= -a\cdot P - b\\
