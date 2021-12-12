@@ -6,6 +6,22 @@ updated: 1639250365794
 created: 1638886485674
 ---
 
+$
+\newcommand{\START}{\textrm{START}}
+\newcommand{\FREE}{\textrm{FREE}}
+\newcommand{\BLOCKED}{\textrm{BLOCKED}}
+\newcommand{\STOPPING}{\textrm{STOPPING}}
+\newcommand{\STOP}{\textrm{STOP}}
+\DeclareMathOperator{\𝗂𝗇𝗂𝗍}{𝗂𝗇𝗂𝗍}
+\DeclareMathOperator{\𝖻𝗋𝖾𝖺𝗄}{𝖻𝗋𝖾𝖺𝗄}
+\DeclareMathOperator{\unbreak}{unbreak}
+\DeclareMathOperator{\𝖻𝗅𝗈𝖼𝗄}{𝖻𝗅𝗈𝖼𝗄}
+\DeclareMathOperator{\𝗎𝗇𝖻𝗅𝗈𝖼𝗄}{𝗎𝗇𝖻𝗅𝗈𝖼𝗄}
+\DeclareMathOperator{\𝗌𝗍𝗈𝗉}{𝗌𝗍𝗈𝗉}
+\DeclareMathOperator{\trans}{trans}
+\newcommand{\timed}[1]{\operatorname{timed}_{#1}}
+$
+
 ## Problem description
 
 - [Enunciado](https://paper.dropbox.com/doc/LC-2021-2022-Trabalhos-Praticos-NZEwyS6N5YQQTw1XsYimE)
@@ -29,11 +45,11 @@ $v$ - Velocidade linear das rodas em relação ao solo
 
 #### Caracterização do Estado
 
-Estado 𝑋 ≡ (𝑚,𝑡,𝑉,𝑣)
+**Estado** $𝑋 ≡ (𝑚,𝑡,𝑉,𝑣)$
 
 #### Estado Inicial
 
-Predicado init(𝑋) = (𝑚 = START) ∧ (𝑡 = 0) ∧ (𝑉 = 𝑣 = 𝑉₀)
+Predicado $\operatorname{init}(𝑋) = (𝑚 = \textrm{START}) ∧ (𝑡 = 0) ∧ (𝑉 = 𝑣 = 𝑉₀)$
 
 #### Transições
 
@@ -45,42 +61,50 @@ As transições untimed estão associadas aos eventos 𝑒 ∈ {𝗂𝗇𝗂𝗍
 
 init(𝑋,𝑋')     ≡ (𝑚 = START)    ∧ (𝑚' = FREE)     ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
 
-break(X,X')    ≡ (𝑚 = FREE)     ∧ (𝑚' = STOPPING) ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
-unbreak(X,X')  ≡ (𝑚 = STOPPING) ∧ (𝑚' = FREE)     ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
-
-block(X,X')    ≡ (𝑚 = STOPPING) ∧ (𝑚' = BLOCKED)  ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣) //∧ (V=v)
-unblock(X,X')  ≡ (𝑚 = BLOCKED)  ∧ (𝑚' = FREE)     ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
-
-stop(X,X')     ≡ (𝑚 = BLOCKED)  ∧ (𝑚' = STOP)     ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
+$$
+\begin{aligned}
+&\operatorname{init}(𝑋,𝑋')     &≡& (𝑚 = \START)    &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\operatorname{break}(X,X')    &≡& (𝑚 = \FREE)     &∧& (𝑚' = \STOPPING) &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\operatorname{unbreak}(X,X')  &≡& (𝑚 = \STOPPING) &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\operatorname{block}(X,X')    &≡& (𝑚 = \STOPPING) &∧& (𝑚' = \BLOCKED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣) \\
+&\operatorname{unblock}(X,X')  &≡& (𝑚 = \BLOCKED)  &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\operatorname{stop}(X,X')     &≡& (𝑚 = \BLOCKED)  &∧& (𝑚' = \STOP)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+\end{aligned}
+$$
 
 ##### Timed
 
 As transições timed estão associadas aos modos 𝑚 ∈ {FREE STOPPING BLOCKED}
 
+Seja $X ≡ (m, t, V, v)$
+
 $$
-\text{timed}_\text{FREE}(X,X') \equiv
+\begin{aligned}
+\timed{\FREE}(X,X')
+&\equiv
 \begin{cases}
-\dot{V} = -c\cdot(V - v) - b) & \land \\
+\dot{V} &= -c\cdot(V - v) - b)\\
+\dot{v} &= -a \cdot P + c \cdot (V - v)
+\end{cases}
+%
+\\[1.5em]
+%
+\timed{\STOPPING}(X,X')
+&\equiv
+\begin{cases}
+\dot{V} = -c\cdot(V - v) - b)\\
 \dot{v} = -a \cdot P + c \cdot (V - v)
 \end{cases}
-
-\ \ \text{com X} \equiv (m, t, V, v)
-$$
-
-$$
-\text{timed}_\text{STOPPING}(X,X') \equiv
+%
+\\[1.5em]
+%
+\timed{\BLOCKED}(X,X')
+&\equiv
 \begin{cases}
-\dot{V} = -c\cdot(V - v) - b) & \land \\
-\dot{v} = -a \cdot P + c \cdot (V - v)
+V &= v\\
+\dot{V} &= -a\cdot P - b\\
 \end{cases}
-
-\ \ \text{com X} \equiv (m, t, V, v)
-$$
-
-$$
-\text{timed}_\text{BLOCKED}(X,X') \equiv
-(V = v)\;\land \;(\,\dot{V}\,=\,-a\cdot P - b\,)
-\ \text{com X} \equiv (m, t, V, v)
+\end{aligned}
 $$
 
 ### Diagram
