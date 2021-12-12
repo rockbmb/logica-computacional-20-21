@@ -4,23 +4,44 @@ title: Trabalho 3
 desc: ''
 updated: 1639250365794
 created: 1638886485674
+export_on_save:
+    html: True
 ---
 
-$
-\newcommand{\START}{\textrm{START}}
-\newcommand{\FREE}{\textrm{FREE}}
-\newcommand{\BLOCKED}{\textrm{BLOCKED}}
-\newcommand{\STOPPING}{\textrm{STOPPING}}
-\newcommand{\STOP}{\textrm{STOP}}
-\DeclareMathOperator{\𝗂𝗇𝗂𝗍}{𝗂𝗇𝗂𝗍}
-\DeclareMathOperator{\𝖻𝗋𝖾𝖺𝗄}{𝖻𝗋𝖾𝖺𝗄}
-\DeclareMathOperator{\unbreak}{unbreak}
-\DeclareMathOperator{\𝖻𝗅𝗈𝖼𝗄}{𝖻𝗅𝗈𝖼𝗄}
-\DeclareMathOperator{\𝗎𝗇𝖻𝗅𝗈𝖼𝗄}{𝗎𝗇𝖻𝗅𝗈𝖼𝗄}
-\DeclareMathOperator{\𝗌𝗍𝗈𝗉}{𝗌𝗍𝗈𝗉}
+$$
+% Comandos auxiliares
+\newcommand{\mode}[1]{\textrm{#1}}
+\newcommand{\untimed}[1]{\operatorname{{untimed}_{#1}}}
+\newcommand{\timed}[1]{\operatorname{{timed}_{#1}}}
+% Modos
+\newcommand{\START}{\mode{START}}
+\newcommand{\FREE}{\mode{FREE}}
+\newcommand{\BLOCKED}{\mode{BLOCKED}}
+\newcommand{\STOPPING}{\mode{STOPPING}}
+\newcommand{\STOPPED}{\mode{STOPPED}}
+% Eventos
+\newcommand{\INIT}{\mode{𝗂𝗇𝗂𝗍}}
+\newcommand{\BREAK}{\mode{𝖻𝗋𝖾𝖺𝗄}}
+\newcommand{\UNBREAK}{\mode{unbreak}}
+\newcommand{\BLOCK}{\mode{𝖻𝗅𝗈𝖼𝗄}}
+\newcommand{\UNBLOCK}{\mode{𝗎𝗇𝖻𝗅𝗈𝖼𝗄}}
+\newcommand{\STOP}{\mode{𝗌𝗍𝗈𝗉}}
+% Transições: Timed
+\newcommand{\TSTART}{\timed{\small\START}}
+\newcommand{\TFREE}{\timed{\small\FREE}}
+\newcommand{\TBLOCKED}{\timed{\small\BLOCKED}}
+\newcommand{\TSTOPPING}{\timed{\small\STOPPING}}
+\newcommand{\TSTOPPED}{\timed{\small\STOPPED}}
+% Transições: Untimed
+\newcommand{\TINIT}{\untimed{\INIT}}
+\newcommand{\TBREAK}{\untimed{\BREAK}}
+\newcommand{\TUNBREAK}{\untimed{\UNBREAK}}
+\newcommand{\TBLOCK}{\untimed{\BLOCK}}
+\newcommand{\TUNBLOCK}{\untimed{\UNBLOCK}}
+\newcommand{\TSTOP}{\untimed{\STOP}}
+%
 \DeclareMathOperator{\trans}{trans}
-\newcommand{\timed}[1]{\operatorname{timed}_{#1}}
-$
+$$
 
 ## Problem description
 
@@ -28,59 +49,66 @@ $
 
 ### Variables
 
-#### Constants
+#### Constantes
 
-- $a$: constante de atrito
-- $b$: atrito no contacto corpo/ar
-- $P$: Peso
-- $f = aP$: Força de atrito ao solo (constante)
+$$
+\begin{aligned}
+&a      &&\textrm{constante de atrito}\\
+&b      &&\textrm{atrito no contacto corpo/ar}\\
+&P      &&\textrm{Peso}\\
+&f = aP &&\textrm{Força de atrito ao solo (constante)}\\
+\end{aligned}
+$$
 
-#### Other
+#### Outras
 
-$F = c(V-v)$ - Força de travagem
-$V$ - Velocidade do corpo em relação ao solo
-$v$ - Velocidade linear das rodas em relação ao solo
+$$
+\begin{aligned}
+&v            &&\textrm{Velocidade linear das rodas em relação ao solo}\\
+&V            &&\textrm{Velocidade do corpo em relação ao solo}\\
+&F = c(V-v)   &&\textrm{Força de travagem}\\
+\end{aligned}
+$$
 
-### Transitions
+## Descrição do Sistema
 
-#### Caracterização do Estado
+Estado
+: $X ≡ (m,t,V,v)$
 
-**Estado** $𝑋 ≡ (𝑚,𝑡,𝑉,𝑣)$
+Predicado $\INIT(X)$
+: $\INIT(X) ≡ (m = \START) ∧ (𝑡 = 0) ∧ (𝑉 = 𝑣 = 𝑉₀)$
 
-#### Estado Inicial
+Predicado $\trans(X,X')$
+: <!--  -->
 
-Predicado $\operatorname{init}(𝑋) = (𝑚 = \textrm{START}) ∧ (𝑡 = 0) ∧ (𝑉 = 𝑣 = 𝑉₀)$
+### Transições
 
-#### Transições
+#### Untimed
 
-Predicado trans(𝑋,𝑋')
-
-##### Untimed
-
-As transições untimed estão associadas aos eventos 𝑒 ∈ {𝗂𝗇𝗂𝗍, 𝖻𝗋𝖾𝖺𝗄, unbreak, 𝖻𝗅𝗈𝖼𝗄 𝗎𝗇𝖻𝗅𝗈𝖼𝗄 𝗌𝗍𝗈𝗉}
+As transições "**untimed**" estão associadas aos eventos $e ∈ \{\INIT, \BREAK, \UNBREAK, \BLOCK, \UNBLOCK, \STOP\}$
 
 //∧ (V=v)
 
 $$
 \begin{aligned}
-&\operatorname{init}(𝑋,𝑋')     &≡& (𝑚 = \START)    &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\operatorname{break}(X,X')    &≡& (𝑚 = \FREE)     &∧& (𝑚' = \STOPPING) &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\operatorname{unbreak}(X,X')  &≡& (𝑚 = \STOPPING) &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\operatorname{block}(X,X')    &≡& (𝑚 = \STOPPING) &∧& (𝑚' = \BLOCKED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣) \\
-&\operatorname{unblock}(X,X')  &≡& (𝑚 = \BLOCKED)  &∧& (𝑚' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
-&\operatorname{stop}(X,X')     &≡& (𝑚 = \BLOCKED)  &∧& (𝑚' = \STOP)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TINIT(X,X')     &≡& (m = \START)    &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TBREAK(X,X')    &≡& (m = \FREE)     &∧& (m' = \STOPPING) &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TUNBREAK(X,X')  &≡& (m = \STOPPING) &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TBLOCK(X,X')    &≡& (m = \STOPPING) &∧& (m' = \BLOCKED)  &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣) \\
+&\TUNBLOCK(X,X')  &≡& (m = \BLOCKED)  &∧& (m' = \FREE)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
+&\TSTOP(X,X')     &≡& (m = \BLOCKED)  &∧& (m' = \STOPPED)     &∧& (𝑡' = 𝑡) &∧& (𝑉' = 𝑉) &∧& (𝑣' = 𝑣)\\
 \end{aligned}
 $$
 
-##### Timed
+#### Timed
 
-As transições timed estão associadas aos modos 𝑚 ∈ {FREE STOPPING BLOCKED}
+As transições "**timed**" estão associadas aos modos $m ∈ \{\FREE, \STOPPING, \BLOCKED\}$
 
 Seja $X ≡ (m, t, V, v)$
 
 $$
 \begin{aligned}
-\timed{\FREE}(X,X')
+\TFREE(X,X')
 &\equiv
 \begin{cases}
 \dot{V} &= -c\cdot(V - v) - b)\\
@@ -89,7 +117,7 @@ $$
 %
 \\[1.5em]
 %
-\timed{\STOPPING}(X,X')
+\TSTOPPING(X,X')
 &\equiv
 \begin{cases}
 \dot{V} = -c\cdot(V - v) - b)\\
@@ -98,7 +126,7 @@ $$
 %
 \\[1.5em]
 %
-\timed{\BLOCKED}(X,X')
+\TBLOCKED(X,X')
 &\equiv
 \begin{cases}
 V &= v\\
@@ -115,7 +143,7 @@ $ΔT = t' - t$
 
 https://plantuml-editor.kkeisuke.com/
 
-```
+```txt
 @startuml
 hide empty description
 
@@ -149,36 +177,3 @@ Stopped:<latex>V=0</latex>
 
 @enduml
 ```
-
-## Tools
-
-### SMT-LIB
-
-- [Home](https://smtlib.cs.uiowa.edu/)
-- [Logics](https://smtlib.cs.uiowa.edu/logics.shtml)
-- [Language/Documentation](https://smtlib.cs.uiowa.edu/language.shtml)
-- [Examples](https://smtlib.cs.uiowa.edu/examples.shtml)
-- [Utilities](https://smtlib.cs.uiowa.edu/utilities.shtml)
-
-### PySMT
-
-- [Home](https://github.com/pysmt/pysmt)
-- [Examples](https://github.com/pysmt/pysmt/tree/master/examples)
-
-### MathSMT
-
-- [Home](https://mathsat.fbk.eu/)
-- [Documentation](https://mathsat.fbk.eu/documentation.html)
-  - [Model Checking](https://github.com/pysmt/pysmt/blob/master/examples/model_checking.py)
-
-### Z3 Solver
-
-Z3 is a theorem prover from Microsoft Research.
-
-- [Home](https://github.com/Z3Prover/z3/wiki)
-- [Programming Z3](https://theory.stanford.edu/~nikolaj/programmingz3.html)
-- [Z3 API in Python examples](https://ericpony.github.io/z3py-tutorial/guide-examples.htm)
-- [Python examples](https://github.com/Z3Prover/z3/tree/master/examples/python)
-- [SAT/SMT by Example Book](https://sat-smt.codes/SAT_SMT_by_example.pdf)
-- [Online Tutoril](https://jfmc.github.io/z3-play/)
-- [API Documentation](https://z3prover.github.io/api/html/index.html)
