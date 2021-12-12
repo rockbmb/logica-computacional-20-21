@@ -87,7 +87,7 @@ Predicado $\trans(X,X')$
 
 As transições "**untimed**" estão associadas aos eventos $e ∈ \{\INIT, \BREAK, \UNBREAK, \BLOCK, \UNBLOCK, \STOP\}$
 
-//∧ (V=v)
+<!-- ∧ (V=v) -->
 
 $$
 \begin{aligned}
