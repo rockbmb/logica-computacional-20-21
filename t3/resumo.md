@@ -173,7 +173,7 @@ Blocked:<latex>V=v</latex>
 Blocked:<latex>\dot{V} = -a \cdot P - b</latex>
 
 Stopped:<latex>V=0</latex>
-Stopped:<latex>V=0</latex>
+Stopped:<latex>v=0</latex>
 
 @enduml
 ```
