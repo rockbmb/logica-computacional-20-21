@@ -57,7 +57,31 @@ stop(X,X')     ≡ (𝑚 = BLOCKED)  ∧ (𝑚' = STOP)     ∧ (𝑡' = 𝑡) �
 
 As transições timed estão associadas aos modos 𝑚 ∈ {FREE STOPPING BLOCKED}
 
-FREE(X,X')
+$$
+\text{timed}_\text{FREE}(X,X') \equiv
+\begin{cases}
+\dot{V} = -c\cdot(V - v) - b) & \land \\
+\dot{v} = -a \cdot P + c \cdot (V - v)
+\end{cases}
+
+\ \ \text{com X} \equiv (m, t, V, v)
+$$
+
+$$
+\text{timed}_\text{STOPPING}(X,X') \equiv
+\begin{cases}
+\dot{V} = -c\cdot(V - v) - b) & \land \\
+\dot{v} = -a \cdot P + c \cdot (V - v)
+\end{cases}
+
+\ \ \text{com X} \equiv (m, t, V, v)
+$$
+
+$$
+\text{timed}_\text{BLOCKED}(X,X') \equiv
+(V = v)\;\land \;(\,\dot{V}\,=\,-a\cdot P - b\,)
+\ \text{com X} \equiv (m, t, V, v)
+$$
 
 ### Diagram
 
