@@ -1,9 +1,5 @@
 ---
-id: CvwPWj4YY9WiJiEJqaOFm
 title: Trabalho 3
-desc: ''
-updated: 1639250365794
-created: 1638886485674
 export_on_save:
     html: True
 ---
@@ -139,11 +135,43 @@ $$
 
 #### Convenções
 
-$ΔT = t' - t$
+```puml
+hide empty description
+skinparam defaultFontName JuliaMono
 
-https://plantuml-editor.kkeisuke.com/
+note as n1
+Let
+ΔT = t' - t
+end note
 
-```txt
+Start --> Free : init
+Start:V = v = V₀
+Start:t = 0
+
+Free --> Stopping : break
+Free:V̇ = -c ⋅ (V-v) - b
+Free:v̇ = -a ⋅ P + c ⋅ (V-v)
+Free:t < t' ≤ t + τ
+
+Stopping --> Free: unstop
+Stopping --> Blocked: block
+Stopping:V̇ = -(↑c) ⋅ (V-v) - b
+Stopping:v̇ = -a ⋅ P + (↑c) ⋅ (V-v)
+Stopping:t' > t
+
+Blocked --> Stopped: stop
+Blocked --> Free: unblock
+Blocked:V = v
+Blocked:V̇ = -a ⋅ P - b
+
+Stopped:V = 0
+Stopped:v = 0
+
+```
+
+<!-- https://plantuml-editor.kkeisuke.com/ -->
+
+```txt {hide}
 @startuml
 hide empty description
 
