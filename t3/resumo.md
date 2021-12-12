@@ -59,7 +59,7 @@ Predicado trans(𝑋,𝑋')
 
 As transições untimed estão associadas aos eventos 𝑒 ∈ {𝗂𝗇𝗂𝗍, 𝖻𝗋𝖾𝖺𝗄, unbreak, 𝖻𝗅𝗈𝖼𝗄 𝗎𝗇𝖻𝗅𝗈𝖼𝗄 𝗌𝗍𝗈𝗉}
 
-init(𝑋,𝑋')     ≡ (𝑚 = START)    ∧ (𝑚' = FREE)     ∧ (𝑡' = 𝑡) ∧ (𝑉' = 𝑉) ∧ (𝑣' = 𝑣)
+//∧ (V=v)
 
 $$
 \begin{aligned}
