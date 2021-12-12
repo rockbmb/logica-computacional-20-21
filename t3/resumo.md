@@ -14,10 +14,10 @@ created: 1638886485674
 
 #### Constants
 
-$a$ - constante de atrito
-$b$ - atrito no contacto corpo/ar
-$P$ - Peso
-$f = aP$ - Força de atrito ao solo (constante)
+- $a$: constante de atrito
+- $b$: atrito no contacto corpo/ar
+- $P$: Peso
+- $f = aP$: Força de atrito ao solo (constante)
 
 #### Other
 
